@@ -1,0 +1,34 @@
+name: fabric-studio
+
+services:
+  - name: web
+    dockerfile_path: Dockerfile
+    github:
+      repo: OnyGroup/fabric-studio
+      branch: main
+      deploy_on_push: true
+    http_port: 3000
+    instance_count: 1
+    instance_size_slug: apps-s-1vcpu-1gb  # upgrade to 2gb if build OOMs
+    health_check:
+      http_path: /
+      initial_delay_seconds: 30
+      period_seconds: 15
+      failure_threshold: 3
+    envs:
+      - key: NODE_ENV
+        value: production
+      - key: OD_WEB_OUTPUT_MODE
+        value: server
+      - key: OD_PORT
+        value: "7456"
+      - key: ANTHROPIC_API_KEY
+        type: SECRET
+      - key: OPENAI_API_KEY
+        type: SECRET
+      - key: GOOGLE_API_KEY
+        type: SECRET
+
+domains:
+  - domain: design.fabric.yapahub.com
+    type: PRIMARY
