@@ -1,4 +1,4 @@
-name: fabric-studio
+name: the-mill
 
 services:
   - name: web
@@ -29,5 +29,5 @@ services:
         type: SECRET
 
 domains:
-  - domain: design.fabric.yapahub.com
+  - domain: mill.yapahub.com
     type: PRIMARY
