@@ -14,6 +14,7 @@ COPY apps/daemon/package.json ./apps/daemon/
 COPY apps/web/package.json ./apps/web/
 COPY packages/ ./packages/
 COPY tools/ ./tools/
+COPY scripts/ ./scripts/
 
 # Install deps — skip Electron (not needed on server)
 RUN ELECTRON_SKIP_BINARY_DOWNLOAD=1 pnpm install --frozen-lockfile
