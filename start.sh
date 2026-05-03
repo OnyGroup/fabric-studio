@@ -8,8 +8,9 @@ DAEMON_PID=$!
 # Give daemon a moment to bind before Next.js starts accepting traffic
 sleep 2
 
-# Start Next.js server on $PORT (injected by DigitalOcean)
-PORT="${PORT:-3000}" node_modules/.bin/next start apps/web -p "${PORT:-3000}" &
+# Start Next.js server on $PORT (injected by DigitalOcean).
+# pnpm workspace resolution finds the next binary inside apps/web.
+pnpm --filter @open-design/web exec -- next start -p "${PORT:-3000}" &
 WEB_PID=$!
 
 # If either process exits, kill the other and exit non-zero
