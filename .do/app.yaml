@@ -9,7 +9,7 @@ services:
       deploy_on_push: true
     http_port: 3000
     instance_count: 1
-    instance_size_slug: apps-s-1vcpu-1gb  # upgrade to 2gb if build OOMs
+    instance_size_slug: apps-s-1vcpu-2gb  # 2gb — claude + codex CLIs need headroom
     health_check:
       http_path: /
       initial_delay_seconds: 30
@@ -22,11 +22,10 @@ services:
         value: server
       - key: OD_PORT
         value: "7456"
+      # --- Agent CLIs (forwarded to claude / codex subprocesses by the daemon)
       - key: ANTHROPIC_API_KEY
         type: SECRET
       - key: OPENAI_API_KEY
-        type: SECRET
-      - key: GOOGLE_API_KEY
         type: SECRET
 
 domains:

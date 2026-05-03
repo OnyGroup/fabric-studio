@@ -41,6 +41,15 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 WORKDIR /app
 COPY --from=base /app ./
 
+# Install design agent CLIs.
+# claude  — primary agent; authenticated via ANTHROPIC_API_KEY at runtime.
+# codex   — secondary agent; authenticated via OPENAI_API_KEY at runtime.
+# Both CLIs are invoked as subprocesses by the daemon; ANTHROPIC_API_KEY /
+# OPENAI_API_KEY are forwarded automatically from the container environment.
+RUN npm install -g @anthropic-ai/claude-code @openai/codex \
+    && claude --version \
+    && codex --version
+
 ENV NODE_ENV=production
 ENV OD_WEB_OUTPUT_MODE=server
 # Daemon binds on this port internally; Next.js proxies to it in dev,
